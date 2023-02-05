@@ -18,13 +18,15 @@ def get_newspaper(date = DATE):
         if not os.path.exists(f'{k}-{date}'):
             os.makedirs(f'{k}-{date}')
         for page in range(1, PAGES+1):
-            url = f"{v}////{date}////{date}-md-hr-{page}.jpg"
+            url = f"{v}////{date}////{date}-md-hr-{page}ll.png"
+            print(url)
             response = requests.get(url, headers=HEADERS)
-            if response.headers.get("content-type") != "image/jpeg":
+            if response.headers.get("content-type") != "image/png":
+                print(f"last page reached: {page-1}")
                 break
             else:
                 print(f"Downloading page {k} {page}")
-                with open(f"{k}-{date}/{date}-md-hr-{page}.jpg", "wb") as f:
+                with open(f"{k}-{date}/{date}-md-hr-{page}ll.png", "wb") as f:
                     f.write(response.content)
     
 if __name__ == "__main__":
